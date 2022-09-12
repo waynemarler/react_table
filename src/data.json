@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "hometeam": "Tottenham",
+    "awayteam": "Man City"
+  },
+  {
+    "id": 2,
+    "hometeam": "Liverpool",
+    "awayteam": "Man United"
+  },
+  {
+    "id": 3,
+    "hometeam": "Arsenal",
+    "awayteam": "Leeds"
+  },
+  {
+    "id": 4,
+    "hometeam": "Chelsea",
+    "awayteam": "Wolves"
+  },
+  {
+    "id": 5,
+    "hometeam": "Brighton",
+    "awayteam": "Southampton"
+  }
+]
