@@ -33,6 +33,11 @@ function App() {
     const newTeams = [...teams, newTeam];
     setTeams(newTeams);
   };
+
+  const handleEditClick = (e, teams) => {
+    e.preventDefault();
+    seteditTeamId(teams.id);
+  };
   return (
     <div className="App">
       <div className="app-container">
@@ -43,7 +48,7 @@ function App() {
               <tr>
                 <th>Home Team</th>
                 <th>Away Team</th>
-                <th>Score</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -52,7 +57,10 @@ function App() {
                   {editTeamId === teams.id ? (
                     <EditableRow />
                   ) : (
-                    <ReadOnlyRow teams={teams} />
+                    <ReadOnlyRow
+                      teams={teams}
+                      handleEditClick={handleEditClick}
+                    />
                   )}
                 </Fragment>
               ))}
