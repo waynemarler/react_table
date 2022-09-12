@@ -36,6 +36,7 @@ function App() {
   return (
     <div className="App">
       <div className="app-container">
+        <h1>Predictor</h1>
         <form>
           <table>
             <thead>
