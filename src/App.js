@@ -12,6 +12,11 @@ function App() {
     hometeam: "",
     awayteam: "",
   });
+
+  const [editFormData, setEditFormData] = useState({
+    hometeam: "",
+    awayteam: "",
+  });
   const [editTeamId, seteditTeamId] = useState(null);
   const handleAddFormChange = (event) => {
     event.preventDefault();
@@ -21,6 +26,14 @@ function App() {
     const newFormData = { ...addFormData };
     newFormData[fieldName] = fieldValue;
     setaddFormData(newFormData);
+  };
+  const handleEditFormChange = (event) => {
+    event.preventDefault();
+    const fieldName = event.target.getAttribute("name");
+    const fieldValue = event.target.value;
+    const newFormData = { ...editFormData };
+    newFormData[fieldName] = fieldValue;
+    setEditFormData(newFormData);
   };
 
   const handleAddFormSubmit = (event) => {
@@ -34,15 +47,34 @@ function App() {
     setTeams(newTeams);
   };
 
-  const handleEditClick = (e, teams) => {
-    e.preventDefault();
+  const handleEditFormSubmit = (event) => {
+    event.preventDefault();
+    const editTeams = {
+      id: editTeamId,
+      hometeam: editFormData.hometeam,
+      awayteam: editFormData.awayteam,
+    };
+    const newTeams = [...teams];
+    const index = teams.findIndex((teams) => teams.id === editTeamId);
+    newTeams[index] = editTeams;
+    setTeams(newTeams);
+    seteditTeamId(null);
+  };
+
+  const handleEditClick = (event, teams) => {
+    event.preventDefault();
     seteditTeamId(teams.id);
+    const formValues = {
+      hometeam: teams.hometeam,
+      awayteam: teams.awayteam,
+    };
+    setEditFormData(formValues);
   };
   return (
     <div className="App">
       <div className="app-container">
         <h1>Predictor</h1>
-        <form>
+        <form onSubmit={handleEditFormSubmit}>
           <table>
             <thead>
               <tr>
@@ -55,7 +87,10 @@ function App() {
               {teams.map((teams) => (
                 <Fragment>
                   {editTeamId === teams.id ? (
-                    <EditableRow />
+                    <EditableRow
+                      editFormData={editFormData}
+                      handleEditFormChange={handleEditFormChange}
+                    />
                   ) : (
                     <ReadOnlyRow
                       teams={teams}
