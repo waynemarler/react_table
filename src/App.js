@@ -5,7 +5,7 @@ import { Fragment, useState } from "react";
 import { nanoid } from "nanoid";
 import ReadOnlyRow from "./components/ReadOnlyRow";
 import EditableRow from "./components/EditableRow";
-import { ReactFragment } from "react";
+
 function App() {
   const [teams, setTeams] = useState(data);
   const [addFormData, setaddFormData] = useState({
@@ -69,6 +69,19 @@ function App() {
       awayteam: teams.awayteam,
     };
     setEditFormData(formValues);
+    console.log(setEditFormData(formValues));
+  };
+  const handleCancelClick = () => {
+    seteditTeamId(null);
+  };
+  const handleDeleteClick = (teamsId) => {
+    const newTeams = [...teams];
+    const index = teams.findIndex((teams) => teams.id === teamsId);
+    newTeams.splice(index, 1);
+    setTeams(newTeams);
+    console.log(teamsId);
+    console.log(index);
+    console.log(newTeams);
   };
   return (
     <div className="App">
@@ -90,11 +103,13 @@ function App() {
                     <EditableRow
                       editFormData={editFormData}
                       handleEditFormChange={handleEditFormChange}
+                      handleCancelClick={handleCancelClick}
                     />
                   ) : (
                     <ReadOnlyRow
                       teams={teams}
                       handleEditClick={handleEditClick}
+                      handleDeleteClick={handleDeleteClick}
                     />
                   )}
                 </Fragment>
